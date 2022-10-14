@@ -14,13 +14,18 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            if isEditable {
-                TextField("Enter name: ", text: $name)
-            } else {
-                Text(name)
-            }
+            editableView
         }.type()
     }
+    
+    private var editableView: some View {
+        if isEditable {
+            return AnyView(TextField("Enter name: ", text: $name))
+        } else {
+            return AnyView(Text(name))
+        }
+    }
+    
 }
 
 extension View {
