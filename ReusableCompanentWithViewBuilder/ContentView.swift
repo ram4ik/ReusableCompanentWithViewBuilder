@@ -18,11 +18,11 @@ struct ContentView: View {
         }.type()
     }
     
-    private var editableView: some View {
+    @ViewBuilder private var editableView: some View {
         if isEditable {
-            return AnyView(TextField("Enter name: ", text: $name))
+            TextField("Enter name: ", text: $name)
         } else {
-            return AnyView(Text(name))
+            Text(name)
         }
     }
     
