@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isEditable: Bool = false
+    @State private var name: String = "Bob"
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+            if isEditable {
+                TextField("Enter name: ", text: $name)
+            } else {
+                Text(name)
+            }
+        }.type()
+    }
+}
+
+extension View {
+    func type() -> some View {
+        print(Swift.type(of: self))
+        return self
     }
 }
 
