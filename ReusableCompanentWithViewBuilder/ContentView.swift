@@ -14,7 +14,12 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            editableView
+            ButtonView(text: "Click Me", color: Color.brown) {
+                Text("Click Me")
+            }
+            ButtonView(text: "Like Me", color: Color.gray) {
+                Text("Like Me")
+            }
         }.type()
     }
     
@@ -38,5 +43,37 @@ extension View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct ButtonView<Content: View>: View {
+    
+    @State private var showModal: Bool = false
+    
+    let text: String
+    let color: Color
+    
+    let content: Content
+    
+    init(text: String, color: Color, @ViewBuilder contentBuilder:() -> Content) {
+        self.text = text
+        self.color = color
+        self.content = contentBuilder()
+    }
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Button {
+                showModal = true
+            } label: {
+                Text(text)
+                    .padding(10)
+                    .foregroundColor(color)
+            }.sheet(isPresented: $showModal) {
+                content
+            }
+            .background(Color.orange.gradient)
+        }
     }
 }
